@@ -1,4 +1,4 @@
-# See: 
+# See: https://leetcode.com/problems/is-subsequence/
 class Solution(object):
     def isSubsequence(self, s, t):
         if len(s) == 0:

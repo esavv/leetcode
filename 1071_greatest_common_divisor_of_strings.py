@@ -1,4 +1,4 @@
-# See: 
+# See: https://leetcode.com/problems/greatest-common-divisor-of-strings/
 class Solution(object):
     def gcdOfStrings(self, str1, str2):
         return self.soln2(str1, str2)    
