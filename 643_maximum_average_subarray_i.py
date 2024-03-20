@@ -1,4 +1,4 @@
-# See: 
+# See: https://leetcode.com/problems/maximum-average-subarray-i/
 class Solution(object):
     def findMaxAverage(self, nums, k):
         maxn = sum(nums[:k])

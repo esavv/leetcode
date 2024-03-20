@@ -1,4 +1,4 @@
-# See: 
+# See: https://leetcode.com/problems/can-place-flowers/
 class Solution(object):
     def canPlaceFlowers(self, flowerbed, n):
         pre = 0

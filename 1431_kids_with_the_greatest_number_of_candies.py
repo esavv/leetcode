@@ -1,4 +1,4 @@
-# See: 
+# See: https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/
 class Solution(object):
     def kidsWithCandies(self, candies, extraCandies):
         maxc = 0
