@@ -10,16 +10,16 @@ class Solution(object):
         if head is None or head.next is None:
             return head
         
-        prev = None      # set
-        cur = head       # set
-        next = head.next # set
-        cur.next = prev  # swoop
+        prev = None
+        cur = head
+        next = head.next
+        cur.next = prev
 
         while next is not None:
-            prev = cur       # shift
-            cur = next       # shift
-            next = next.next # shift
-            cur.next = prev  # swoop
+            prev = cur
+            cur = next
+            next = next.next
+            cur.next = prev
         return cur
 
     # recursive approach
