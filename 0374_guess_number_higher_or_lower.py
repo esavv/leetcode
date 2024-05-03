@@ -3,9 +3,9 @@ class Solution(object):
     def guessNumber(self, n):
         delta = max(1, n // 2)
         num = delta
-        while guess(num) != 0:
+        while guess(num) != 0: # type: ignore
             delta = max(1, delta // 2)
-            if guess(num) == -1:
+            if guess(num) == -1: # type: ignore
                 num -= delta
             else:
                 num += delta
