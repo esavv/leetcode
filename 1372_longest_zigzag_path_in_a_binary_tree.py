@@ -7,7 +7,7 @@ class Solution(object):
     # iterative approach
     def soln2(self, root):
         stack = []
-        ans, length, fromleft = 0, 0, False
+        ans, length, fromLeft = 0, 0, False
         while root or stack:
             while root:
                 ans = max(ans, length)
