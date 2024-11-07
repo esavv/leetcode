@@ -53,8 +53,4 @@ class Solution(object):
                 addChildren(parent.right, rightStart, mid-1, mid+1, rightEnd)
             return
 
-        mid = (len(nums)-1) // 2
-        root = TreeNode(val=nums[mid])
-        addChildren(root, 0, mid-1, mid+1, len(nums)-1)
-        return root
-        
+  
