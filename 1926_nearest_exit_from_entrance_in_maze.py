@@ -3,29 +3,25 @@ class Solution(object):
     def nearestExit(self, maze, entrance):
         return self.soln1(maze, entrance)
 
-    # sub-optimal DFS solution that doesn't work
+    # DFS - doesn't work because graph is not acyclic
     def soln1(self, maze, entrance):
         visited = {}
-        minSteps = float("inf")
         m, n = len(maze), len(maze[0])
         empty = '.'
 
-        x, y = entrance[0], entrance[1]
+        # calculate the smallest possible distance to exit
+        x, y = entrance
         smallestDist = min(x, m-1-x, y, n-1-y)
         
         def moveStep(position, distance):
-            if minSteps == smallestDist:
-                return
-
-            x, y = position[0], position[1]
+            x, y = position
             if position != entrance and (x == 0 or y == 0 or x == m-1 or y == n-1):
-                minSteps = min(minSteps, distance)
-                return
+                return distance
 
             candidate_moves = [[x+1,y], [x-1,y], [x,y+1], [x,y-1]]
             viable_moves = []
             for move in candidate_moves:
-                i, j = move[0], move[1]
+                i, j = move
                 moveVisited = False
                 if i in visited and j in visited[i]:
                     moveVisited = True			
@@ -38,12 +34,14 @@ class Solution(object):
             else:
                 visited[x] = set([y])
 
+            minSteps = float("inf")
             for move in viable_moves:
-                moveStep(move, distance + 1)
-            return
+                minSteps = min(minSteps, moveStep(move, distance + 1))
+                if minSteps == smallestDist:
+                    break
+            return minSteps
 
-        moveStep(entrance, 0)
-
+        minSteps = moveStep(entrance, 0)
         if minSteps == float("inf"):
             return -1
         return minSteps
