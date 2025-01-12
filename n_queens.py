@@ -82,12 +82,12 @@ def soln1(self, n):
                 continue
             grid[row+i][col+i] += 1
         ## mark the "decreasing" diagonals
-        hi = max(n - 1 - row, col - 0)
+        hi = min(n - 1 - row, col - 0)
         lo = max(0 - row, col - n + 1)
         for i in range(lo, hi+1):
             if i == 0:
                 continue
-            grid[row+i][col+i] += 1
+            grid[row+i][col-i] += 1
         return
 
     def remove_queen(row, col):
