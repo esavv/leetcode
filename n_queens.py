@@ -47,8 +47,14 @@ def soln1(self, n):
             grid[row][i] += 1
 
         ## mark the diagonals
-        # if we place a queen at (i,j), the diagonal spaces from this location are all spaces
-        #   in the grid (i+x,j+x) and (i+x,j-x) 
+        # If we place a queen at (i,j), the diagonal spaces from this location are
+        #   all spaces in the grid (i+x,j+x) such that i+x in (0,n-1) and j+x in (0,n-1)
+        #   and
+        #   all spaces in the grid (i+x,j-x) such that i+x in (0,n-1) and j-x in (0,n-1)
+        # The uninspired way to do this would be to loop through x from -n to +n and check if each
+        #   candidate diagonal is actually contained in the grid... but there should be a smarter way.
+        # Maybe we can compute the distance that (i,j) is from each edge of the grid to infer
+        #   the correc range for x
         #
         #   0   0   0   0
         #   0   0   1   0
