@@ -56,10 +56,38 @@ def soln1(self, n):
         # Maybe we can compute the distance that (i,j) is from each edge of the grid to infer
         #   the correc range for x
         #
+        # Example for n=4, queen at (1,2)
         #   0   0   0   0
         #   0   0   1   0
         #   0   0   0   0
-        #   0   0   0   0        
+        #   0   0   0   0
+        # To find the "increasing" diagonals (1+x, 2+x), we recognize that 
+        #   the largest x can be is constrained by (n-1) - max(1,2) = 3 - 2 = 1
+        #   and
+        #   the smallest x can be is constrained by 0 - min(1,2) = -1
+        #   For all x in (-1,1) we get the diagonals: (1 - 1, 2 - 1), (1 + 0, 2 + 0), (1 + 1, 2 + 1)
+        #     or, simplified & exlcuding the origin: (0,1), (2,3)
+        #
+        # To find the "decreasing" diagonals (1+x, 2-x), we recognize with some squinting that
+        #   the largest x can be is cnstrained by max(n - 1 - 1, 2 - 0) = max(4 - 2, 2) = 2
+        #   and
+        #   the smallest x can be is constrained by max(0 - 1, 2 - n + 1) = max(-1, 2 - 3) = -1
+        #   For all x in (-1,2) we get the diagonals: (1 - 1, 2 + 1), (1 + 1, 2 - 1), (1 + 2, 2 - 2)
+        #     simplified: (0,3), (2,1), (3,0)
+        ## mark the "increasing" diagonals
+        hi = n - 1 - max(row, col)
+        lo = 0 - min(row, col)
+        for i in range(lo, hi+1):
+            if i == 0:
+                continue
+            grid[row+i][col+i] += 1
+        ## mark the "decreasing" diagonals
+        hi = max(n - 1 - row, col - 0)
+        lo = max(0 - row, col - n + 1)
+        for i in range(lo, hi+1):
+            if i == 0:
+                continue
+            grid[row+i][col+i] += 1
         return
 
     def remove_queen(row, col):
