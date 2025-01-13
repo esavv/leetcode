@@ -1,3 +1,5 @@
+# Backtracking Explore Card: https://leetcode.com/explore/learn/card/recursion-ii/472/backtracking/
+
 def soln1(n):
     # To manage the queen exploration, initialize an nXn 2d list to 0s
     # -1 represents a queen

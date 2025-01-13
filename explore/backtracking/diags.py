@@ -1,3 +1,5 @@
+# Backtracking Explore Card: https://leetcode.com/explore/learn/card/recursion-ii/472/backtracking/
+
 # print all of the indices along two diagonals from a given index (row, col) in an nXn grid
 def diag(n, row, col):
     ## mark the "increasing" diagonals
