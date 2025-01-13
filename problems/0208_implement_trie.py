@@ -4,6 +4,9 @@ class TrieNode():
         self.children = [None] * 26
         self.isWord = False
 
+def atoi(char):
+    return ord(char) - ord('a')
+
 class Trie():
     def __init__(self):
         self.head = TrieNode()
@@ -30,7 +33,7 @@ class Trie():
 
     def startsWith(self, prefix):
         curr = self.head
-        for char in word:
+        for char in prefix:
             idx = atoi(char)
             if not curr.children[idx]:
                 return False
