@@ -27,33 +27,7 @@ def soln1(n):
         grid[row][col] = -1
 
         # then, mark the queen's attack spaces
-        ## mark the verticals
-        for i in range(n):
-            if i == row:
-                continue
-            grid[i][col] += 1
-
-        ## mark the horizontals
-        for i in range(n):
-            if i == col:
-                continue
-            grid[row][i] += 1
-
-        ## mark the "increasing" diagonals
-        hi = n - 1 - max(row, col)
-        lo = 0 - min(row, col)
-        for i in range(lo, hi+1):
-            if i == 0:
-                continue
-            grid[row+i][col+i] += 1
-
-        ## mark the "decreasing" diagonals
-        hi = min(n - 1 - row, col - 0)
-        lo = max(0 - row, col - n + 1)
-        for i in range(lo, hi+1):
-            if i == 0:
-                continue
-            grid[row+i][col-i] += 1
+        update_attack_spaces(row, col, True)
         return
 
     def remove_queen(row, col):
@@ -61,33 +35,39 @@ def soln1(n):
         grid[row][col] = 0
 
         # then, decrement the queen's attack spaces
-        ## unmark the verticals
+        update_attack_spaces(row, col, False)
+        return
+
+    def update_attack_spaces(row, col, place):
+        update = 1 if place else -1
+
+        ## mark the verticals
         for i in range(n):
             if i == row:
                 continue
-            grid[i][col] -= 1
+            grid[i][col] += update
 
-        ## unmark the horizontals
+        ## mark the horizontals
         for i in range(n):
             if i == col:
                 continue
-            grid[row][i] -= 1
+            grid[row][i] += update
 
-        ## unmark the "increasing" diagonals
+        ## mark the "increasing" diagonals
         hi = n - 1 - max(row, col)
         lo = 0 - min(row, col)
         for i in range(lo, hi+1):
             if i == 0:
                 continue
-            grid[row+i][col+i] -= 1
+            grid[row+i][col+i] += update
 
-        ## unmark the "decreasing" diagonals
+        ## mark the "decreasing" diagonals
         hi = min(n - 1 - row, col - 0)
         lo = max(0 - row, col - n + 1)
         for i in range(lo, hi+1):
             if i == 0:
                 continue
-            grid[row+i][col-i] -= 1
+            grid[row+i][col-i] += update
         return
 
     return backtrack(0, 0)
