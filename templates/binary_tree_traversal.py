@@ -1,8 +1,21 @@
+from collections import deque
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
+
+# iterative BFS
+def iterativeBFS(root):
+    queue = deque([root])
+    while queue:
+        node = queue.popleft()
+        print(node.val)
+        if node.left:
+            queue.append(node.left)
+        if node.right:
+            queue.append(node.right)
+    return
 
 # iterative inorder DFS
 def iterativeInorderDFS(root):
@@ -18,7 +31,14 @@ def iterativeInorderDFS(root):
 
 # iterative preorder DFS
 def iterativePreorderDFS(root):
-    #TODO
+    stack = [root]
+    while stack:
+        node = stack.pop()
+        print(node.val)
+        if node.right:
+            stack.append(node.right)
+        if node.left:
+            stack.append(node.left)
     return
 
 # iterative postorder DFS
