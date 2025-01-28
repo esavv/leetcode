@@ -1,7 +1,32 @@
 # See: https://leetcode.com/problems/maximum-subsequence-score/
+import heapq
 class Solution(object):
     def maxScore(self, nums1, nums2, k):
-        return self.soln1(nums1, nums2, k)
+        return self.soln2(nums1, nums2, k)
+        # return self.soln1(nums1, nums2, k)
+
+    # sorting + heap + sliding window
+    def soln2(self, nums1, nums2, k):
+        n = len(nums1)
+        for i in range(n):
+            nums1[i] = (nums1[i], nums2[i])
+
+        nums1.sort(key=lambda tup: tup[1], reverse=True)
+        heap, currSum = [], 0
+
+        for i in range(k):
+            heap.append(nums1[i][0])
+            currSum += nums1[i][0]
+        maxScore = currSum * nums1[k-1][1]
+        heapq.heapify(heap)
+
+        for i in range(k, n):
+            currSum -= heapq.heappop(heap)
+            heapq.heappush(heap, nums1[i][0])
+            currSum += nums1[i][0]
+            maxScore = max(maxScore, currSum * nums1[i][1])
+
+        return maxScore
 
     # brute force, combinatorial time complexity ( O(C(n,k)) )
     def soln1(self, nums1, nums2, k):
