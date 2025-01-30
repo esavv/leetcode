@@ -1,7 +1,38 @@
 # See: https://leetcode.com/problems/total-cost-to-hire-k-workers/
+import heapq
 class Solution(object):
     def totalCost(self, costs, k, candidates):
-        return self.soln1(costs, k, candidates)
+        return self.soln2(costs, k, candidates)
+        # return self.soln1(costs, k, candidates)
+
+    # min heap approach
+    def soln2(self, costs, k, candidates):
+        left, right = [], []
+        leftIdx, rightIdx = 0, len(costs)-1
+        totalCost = 0
+
+        while len(left) < candidates and leftIdx <= rightIdx:
+            left.append(costs[leftIdx])
+            leftIdx += 1
+        while len(right) < candidates and leftIdx <= rightIdx:
+            right.append(costs[rightIdx])
+            rightIdx -= 1
+        heapq.heapify(left)
+        heapq.heapify(right)
+
+        for _ in range(k):
+            if (left and not right) or (left and right and left[0] <= right[0]):
+                minWorker = heapq.heappop(left)
+                if leftIdx <= rightIdx:
+                    heapq.heappush(left, costs[leftIdx])
+                    leftIdx += 1
+            elif right:
+                minWorker = heapq.heappop(right)
+                if leftIdx <= rightIdx:
+                    heapq.heappush(right, costs[rightIdx])
+                    rightIdx -= 1
+            totalCost += minWorker
+        return totalCost
 
     # sliding window approach that fails for time on certain test cases
     def soln1(self, costs, k, candidates):
