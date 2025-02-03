@@ -1,7 +1,47 @@
 # See: https://leetcode.com/problems/nearest-exit-from-entrance-in-maze/
 class Solution(object):
     def nearestExit(self, maze, entrance):
-        return self.soln1(maze, entrance)
+        return self.soln2(maze, entrance)
+        # return self.soln1(maze, entrance)
+
+    # BFS with queue
+    def soln2(self, maze, entrance):
+        from collections import deque
+        m, n = len(maze), len(maze[0])
+
+        def isExit(space):
+            if space == entrance:
+                return False
+            row, col = space
+            if row in (0, m-1) or col in (0, n-1):
+                return True
+            return False
+
+        def visit(space):
+            row, col = space
+            maze[row][col] = 'x'
+            return
+
+        def getChildren(space):
+            row, col = space
+            candidates = [(row+1, col), (row-1, col), (row, col+1), (row, col-1)]
+            children = []
+            for candidate in candidates:
+                x, y = candidate
+                if 0 <= x <= m-1 and 0 <= y <= n-1 and maze[x][y] == '.':
+                    children.append(candidate)
+            return children
+
+        queue = deque([(entrance, 0)])
+        visit(entrance)
+        while queue:
+            space, dist = queue.popleft()
+            if isExit(space):
+                return dist
+            for child in getChildren(space):
+                queue.append((child, dist+1))
+                visit(child)
+        return -1
 
     # DFS - doesn't work because graph is not acyclic
     def soln1(self, maze, entrance):
