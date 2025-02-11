@@ -1,12 +1,48 @@
 # See: https://leetcode.com/problems/dota2-senate/
-from collections import deque
 class Solution(object):
     def predictPartyVictory(self, senate):
-        return self.soln2(senate)
+        return self.soln3(senate)
+        # return self.soln2(senate)
         # return self.soln1(senate)
+
+    # soln #1 from 2/11/2025
+    # queue approach
+    def soln3(self, senate):
+        from collections import deque
+
+        r_count, d_count = 0, 0
+        queue = deque()
+        for char in senate:
+            queue.append(char)
+            if char == 'R':
+                r_count += 1
+            else:
+                d_count += 1
+
+        r_bans, d_bans = 0, 0
+        while queue:
+            if r_count == 0:
+                return 'Dire'
+            if d_count == 0:
+                return 'Radiant'
+
+            senator = queue.popleft()
+            if senator == 'R' and r_bans == 0:
+                d_bans += 1
+                queue.append(senator)
+            elif senator == 'D' and d_bans == 0:
+                r_bans += 1
+                queue.append(senator)
+            elif senator == 'R' and r_bans > 0:
+                r_count -= 1
+                r_bans -= 1
+            elif senator == 'D' and d_bans > 0:
+                d_count -= 1
+                d_bans -= 1
 
     # revolving queue approach, keep moving voters at the front to the back unless they're banned
     def soln2(self, senate):
+        from collections import deque
         party     = {'R': 0, 'D': 1}
         pops      = {0: 0, 1: 0}
         live_bans = {0: 0, 1: 0}
