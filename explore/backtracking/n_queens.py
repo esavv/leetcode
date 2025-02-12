@@ -10,8 +10,10 @@ def soln1(n):
         for col in range(n):
             if is_not_under_attack(row, col):
                 place_queen(row, col)
+                # if we've found a solution, count it
                 if row + 1 == n:
                     count += 1
+                # otherwise keep looking
                 else:
                     count = backtrack(row + 1, count)
                 remove_queen(row, col)
