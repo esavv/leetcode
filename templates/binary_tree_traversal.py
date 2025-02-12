@@ -17,7 +17,7 @@ def iterativeBFS(root):
             queue.append(node.right)
     return
 
-# iterative inorder DFS
+# iterative inorder DFS (left > root > right)
 def iterativeInorderDFS(root):
     stack = []
     while root or stack:
@@ -29,7 +29,7 @@ def iterativeInorderDFS(root):
         root = root.right
     return
 
-# iterative preorder DFS
+# iterative preorder DFS (root > left > right)
 def iterativePreorderDFS(root):
     stack = [root]
     while stack:
@@ -41,12 +41,12 @@ def iterativePreorderDFS(root):
             stack.append(node.left)
     return
 
-# iterative postorder DFS
+# iterative postorder DFS (left > right > root)
 def iterativePostorderDFS(root):
     #TODO
     return
 
-# recursive inorder DFS
+# recursive inorder DFS (left > root > right)
 def recursiveInorderDFS(root):
     def dfs(node):
         if not node:
@@ -57,7 +57,7 @@ def recursiveInorderDFS(root):
         return
     return dfs(root)
 
-# recursive preorder DFS
+# recursive preorder DFS (root > left > right)
 def recursivePreorderDFS(root):
     def dfs(node):
         if not node:
@@ -68,7 +68,7 @@ def recursivePreorderDFS(root):
         return
     return dfs(root)
 
-# recursive postorder DFS
+# recursive postorder DFS (left > right > root)
 def recursivePostorderDFS(root):
     def dfs(node):
         if not node:
