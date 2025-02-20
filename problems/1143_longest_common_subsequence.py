@@ -1,15 +1,57 @@
 # See: https://leetcode.com/problems/longest-common-subsequence/
 class Solution(object):
     def longestCommonSubsequence(self, text1, text2):
-        return self.soln6(text1, text2)
+        return self.soln7(text1, text2)
+        # return self.soln6(text1, text2)
         # return self.soln5(text1, text2)
         # return self.soln4(text1, text2)
         # return self.soln3(text1, text2)
         # return self.soln2(text1, text2)
         # return self.soln1(text1, text2)
 
+    # soln #3 from 2/20/2025
+    # dp: space-optimized tabulation
+    def soln7(self, text1, text2):
+        # remove non-overlapping chars
+        text1_chars = set([char for char in text1])
+        text2_chars = set([char for char in text2])
+        text1_adj, text2_adj = "", ""
+        for char in text1:
+            if char in text2_chars:
+                text1_adj += char
+        for char in text2:
+            if char in text1_chars:
+                text2_adj += char
+        text1, text2 = text1_adj, text2_adj
+
+        # space optimize for shorter string
+        if len(text1) < len(text2):
+            text1, text2 = text2, text1
+        n, m = len(text1), len(text2)
+        if n == 0 or m == 0:
+            return 0
+
+        # tabulate
+        prev = [0 for _ in range(m)] 
+        for i in range(n):
+            curr = [0 for _ in range(m)]
+            for j in range(m):
+                if text1[i] == text2[j]:
+                    if j == 0:
+                        curr[j] = 1
+                    else:
+                        curr[j] = 1 + prev[j-1]
+                else:
+                    if j == 0:
+                        curr[j] = prev[j]
+                    else:
+                        curr[j] = max(curr[j-1], prev[j])
+            prev = curr
+
+        return prev[m-1]
+
     # soln #2 from 2/20/2025
-    # iterative dp
+    # dp: tabulation
     def soln6(self, text1, text2):
         n, m = len(text1), len(text2)
         memo = [[-1 for _ in range(m)] for _ in range(n)]
@@ -34,7 +76,7 @@ class Solution(object):
         return memo[n-1][m-1]
 
     # soln #1 from 2/20/2025
-    # recursion with memoization
+    # dp: memoization
     def soln5(self, text1, text2):
         n, m = len(text1), len(text2)
         memo = [[-1 for _ in range(m)] for _ in range(n)]
