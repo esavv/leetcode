@@ -43,7 +43,17 @@ def iterativePreorderDFS(root):
 
 # iterative postorder DFS (left > right > root)
 def iterativePostorderDFS(root):
-    #TODO
+    stack1, stack2 = [], []
+    while root or stack1:
+        while root:
+            stack1.append(root)
+            stack2.append(root)
+            root = root.right
+        root = stack1.pop()
+        root = root.left
+    while stack2:
+        node = stack2.pop()
+        print(node.val)
     return
 
 # recursive inorder DFS (left > root > right)
