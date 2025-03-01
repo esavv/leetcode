@@ -13,25 +13,24 @@ class Solution(object):
                 self.rank = [1] * size
 
             def find(self, x):
-                if x == self.root[x]:
-                    return x
-                self.root[x] = self.find(self.root[x])
+                if x != self.root[x]:
+                    self.root[x] = self.find(self.root[x])
                 return self.root[x]
 
             def union(self, x, y):
                 rootX = self.find(x)
                 rootY = self.find(y)
-                if rootX != rootY:
-                    if self.rank[rootX] > self.rank[rootY]:
-                        self.root[rootY] = rootX
-                    elif self.rank[rootX] < self.rank[rootY]:
-                        self.root[rootX] = rootY
-                    else:
-                        self.root[rootY] = rootX
-                        self.rank[rootX] += 1
+                if rootX == rootY:
+                    return False
 
-            def connected(self, x, y):
-                return self.find(x) == self.find(y)
+                if self.rank[rootX] > self.rank[rootY]:
+                    self.root[rootY] = rootX
+                elif self.rank[rootX] < self.rank[rootY]:
+                    self.root[rootX] = rootY
+                else:
+                    self.root[rootY] = rootX
+                    self.rank[rootX] += 1
+                return True
 
         n = len(points)
         edgeCosts = []
@@ -47,14 +46,13 @@ class Solution(object):
         edgeCosts.sort()
 
         graph = UnionFind(n)
-        totalCost, edgeCount, idx = 0, 0, 0
+        totalCost, edgeCount = 0, 0
         # build a minimum spanning tree with kruskal's algorithm
-        while idx < len(edgeCosts) and edgeCount < n-1:
-            cost, i, j = edgeCosts[idx]
-            if not graph.connected(i,j):
-                graph.union(i,j)
+        for cost, i, j in edgeCosts:
+            if graph.union(i,j):
                 totalCost += cost
                 edgeCount += 1
-            idx += 1
+                if edgeCount == n-1:
+                    break
 
         return totalCost
