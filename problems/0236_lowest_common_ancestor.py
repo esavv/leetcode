@@ -1,6 +1,7 @@
 # See: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 class Solution(object):
     def lowestCommonAncestor(self, root, p, q):
+        # return self.soln5(root, p, q)
         return self.soln4(root, p, q)
         # return self.soln3(root, p, q)
         # return self.soln1(root, p, q)
@@ -38,6 +39,7 @@ class Solution(object):
         lcaNode = [None]
 
         def dfs(node):
+            # terminating condition
             if not node or lcaNode[0] != None:
                 return False
             
@@ -45,6 +47,7 @@ class Solution(object):
             right = dfs(node.right)
             curr = (node.val == p.val or node.val == q.val)
 
+            # check if LCA
             if curr + left + right == 2:
                 lcaNode[0] = node
 
@@ -53,6 +56,32 @@ class Solution(object):
         dfs(root)
         return lcaNode[0]
 
+    # soln #3 on 3/3/2025
+    # riff on soln1 with small cleanup
+    def soln5(self, root, p, q):
+        p_path, q_path = [], []
+	
+        def dfs(node, target, path):
+            if not node:
+                return False
+            if node.val == target or dfs(node.left, target, path) or dfs(node.right, target, path):
+                path.append(node)
+                return True
+            return False
+
+        dfs(root, p.val, p_path)
+        dfs(root, q.val, q_path)
+
+        p_idx, q_idx = 0, len(q_path) - len(p_path)
+        if len(p_path) > len(q_path):
+            q_idx, p_idx = 0, len(p_path) - len(q_path)
+
+        while p_path[p_idx].val != q_path[q_idx].val:
+            p_idx += 1
+            q_idx += 1
+        return p_path[p_idx]
+
+    # soln #1
     # recursive DFS each tree to find p- and q-paths, then compare the paths
     def soln1(self, root, p, q):
         p_path, q_path = [], []
