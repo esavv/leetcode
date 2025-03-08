@@ -1,8 +1,31 @@
 # See: https://leetcode.com/problems/combination-sum-iii/
 class Solution(object):
     def combinationSum3(self, k, n):
-        return self.soln2(k, n)
+        return self.soln3(k, n)
+        # return self.soln2(k, n)
         # return self.soln1(k, n)
+
+    # soln #1 on 3/7/2025
+    # recursion / backtrack attempt
+    def soln3(self, k, n):
+        combos = []
+
+        def backtrack(n, k, nums, combo):
+            if n == 0 and k == 0:
+                combos.append(combo)
+                return
+
+            if n < 1:
+                return
+
+            for number in range(nums, 0, -1):
+                new_combo = combo[:]
+                new_combo.append(number)
+                backtrack(n - number, k - 1, number-1, new_combo)
+            return
+
+        backtrack(n, k, 9, [])
+        return combos
 
     # soln1 with editorial-inspired renaming
     def soln2(self, k, n):
