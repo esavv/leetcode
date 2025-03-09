@@ -4,7 +4,7 @@ class Solution(object):
         return self.soln2(points)
         # return self.soln1(points)
 
-    # soln #1 from 3/08/2025
+    # soln #1 from 3/09/2025
     # prim's algorithm
     def soln2(self, points):
         n = len(points)
