@@ -1,8 +1,34 @@
 # See: https://leetcode.com/problems/delete-node-in-a-bst/
 class Solution(object):
     def deleteNode(self, root, key):
-        return self.soln2(root, key)
+        return self.soln3(root, key)
+        # return self.soln2(root, key)
         # return self.soln1(root, key)
+
+    # soln #2 from 3/12/2025
+    # soln2 with improvements
+    def soln3(self, root, key):
+        if not root:
+            return None
+        
+        if root.val > key:
+            root.left = self.soln3(root.left, key)
+        elif root.val < key:
+            root.right = self.soln3(root.right, key)
+        else:
+            if not root.left and not root.right:
+                root = None
+            elif root.left and not root.right:
+                root = root.left
+            elif not root.left and root.right:
+                root = root.right
+            else:
+                parent = root.left
+                while parent.right:
+                    parent = parent.right
+                parent.right = root.right
+                root = root.left
+        return root
 
     # soln #1 from 3/12/2025
     # recursion without BST logic
