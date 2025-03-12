@@ -1,7 +1,54 @@
 # See: https://leetcode.com/problems/delete-node-in-a-bst/
 class Solution(object):
     def deleteNode(self, root, key):
-        return self.soln1(root, key)
+        return self.soln2(root, key)
+        # return self.soln1(root, key)
+
+    # soln #1 from 3/12/2025
+    # recursion without BST logic
+    def soln2(self, root, key):
+
+        def findAndDelete(node, root):
+            if not node:
+                return None
+
+            if node.val == key:
+                # node is a leaf
+                if not node.left and not node.right:
+                    if node == root:
+                        root = None
+                    return None
+
+                # node has 1 child
+                if node.left and not node.right:
+                    if node == root:
+                        root = node.left
+                    return node.left
+                if node.right and not node.left:
+                    if node == root:
+                        root = node.right
+                    return node.right
+
+                # node has 2 children
+                if node.left and node.right:
+
+                    # demote node.right
+                    parent = node.left
+                    while parent.right:
+                        parent = parent.right
+                    parent.right = node.right
+
+                    # promote node.left
+                    if node == root:
+                        root = node.left
+                    return node.left
+            else:
+                node.left = findAndDelete(node.left, root)
+                node.right = findAndDelete(node.right, root)
+                return node
+
+        root = findAndDelete(root, root)
+        return root
 
     # naive. arbitrary promote left child over right child
     def soln1(self, root, key):
