@@ -13,10 +13,6 @@ class StockSpanner(object):
         # self.hist = [] # list of ints
         
     def next(self, price):
-        """
-        :type price: int
-        :rtype: int
-        """
         return self.soln3(price)
         # return self.soln2(price)
         # return self.soln1(price)
