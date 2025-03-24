@@ -1,9 +1,24 @@
 # See: https://leetcode.com/problems/max-consecutive-ones-iii/
 class Solution(object):
     def longestOnes(self, nums, k):
-        return self.soln3(nums, k)
+        return self.soln4(nums, k)
+        # return self.soln3(nums, k)
         # return self.soln2(nums, k)
         # return self.soln1(nums, k)
+
+    # soln #1 from 3/25/2025
+    # sliding window
+    def soln4(self, nums, k):
+        ans = left = 0
+        for right in range(len(nums)):
+            k -= 1 - nums[right]
+
+            while k < 0:
+                k += 1 - nums[left]
+                left += 1
+
+            ans = max(ans, right - left + 1)
+        return ans
 
     # soln #1 from 2/21/2025
     # sliding window
