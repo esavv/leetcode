@@ -1,10 +1,33 @@
 # See: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 class Solution(object):
     def lowestCommonAncestor(self, root, p, q):
+        return self.soln6(root, p, q)
         # return self.soln5(root, p, q)
-        return self.soln4(root, p, q)
+        # return self.soln4(root, p, q)
         # return self.soln3(root, p, q)
         # return self.soln1(root, p, q)
+
+    # soln #1 on 4/11/2025
+    # recursive approach
+    def soln6(self, root, p, q):
+        lcaNode = [None]
+
+        def dfs(node, p, q):
+            if lcaNode[0] or not node:
+                return 0
+
+            curr = node.val == p.val or node.val == q.val
+            left = dfs(node.left, p, q)
+            right = dfs(node.right, p, q)
+
+            if curr + left + right == 2:
+                lcaNode[0] = node
+                return 0
+
+            return curr + left + right
+
+        dfs(root, p, q)
+        return lcaNode[0]
 
     # soln #2 on 3/3/2025
     # iterative post-order dfs
