@@ -4,7 +4,7 @@ class Solution(object):
         return self.soln2(nums, target)
         # return self.soln1(nums, target)
 
-    # soln #2 on 4/15/2025
+    # soln #2 on 4/16/2025
     # sorting + two pointers
     def soln2(self, nums, target):
         closestDiff = float("inf")
@@ -30,7 +30,7 @@ class Solution(object):
                 break # we found the target
         return closestSum    
     
-    # soln #1 on 4/15/2025
+    # soln #1 on 4/16/2025
     # brute force
     def soln1(self, nums, target):
         closestDiff = float("inf")
