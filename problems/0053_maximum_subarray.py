@@ -1,7 +1,21 @@
 # See: https://leetcode.com/problems/maximum-subarray/
 class Solution(object):
     def maxSubArray(self, nums):
-        return self.soln1(nums)
+        return self.soln2(nums)
+        # return self.soln1(nums)
+
+    # soln #2 on 4/28/2025
+    # leetcode's "dynamic programming" approach
+    def soln2(self, nums):
+        currSum, maxSum = 0, float("-inf")
+
+        for num in nums:
+            currSum += num
+            maxSum = max(maxSum, currSum)
+            if currSum < 0:
+                currSum = 0
+
+        return maxSum
 
     # soln #1 on 4/28/2025
     # sliding window
