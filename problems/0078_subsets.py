@@ -1,9 +1,24 @@
 # See: https://leetcode.com/problems/subsets/
 class Solution(object):
     def subsets(self, nums):
-        return self.soln3(nums)
+        return self.soln4(nums)
+        # return self.soln3(nums)
         # return self.soln2(nums)
         # return self.soln1(nums)
+
+    # soln #4 on 5/09/2025
+    # bit manipulation
+    def soln4(self, nums):
+        n = len(nums)
+        subs = []
+        for i in range(2 ** n):
+            combo = []
+            for j in range(n-1, -1, -1):
+                if (i & 1) == 1:
+                    combo.append(nums[j])
+                i >>= 1
+            subs.append(list(combo))
+        return subs
 
     # soln #3 on 5/08/2025
     # optimized backtrack
