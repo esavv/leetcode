@@ -12,18 +12,16 @@ class Solution(object):
         
         def backtrack(dots, startIdx, addr):
             if dots == -1:
-                validIPs.append(''.join(addr))
+                validIPs.append('.'.join(addr))
                 return
             if dots > 0:
                 numRange = range(startIdx, min(startIdx+3, n - dots))
-                pad = '.'
             else:
                 numRange = range(n-1, n)
-                pad = ''
             for i in numRange:
                 currNum = s[startIdx:i+1]
                 if currNum == '0' or (currNum[0] != '0' and 0 <= int(currNum) <= 255):
-                    addr.append(currNum + pad)
+                    addr.append(currNum)
                     backtrack(dots-1, i+1, addr)
                     addr.pop()
             return
