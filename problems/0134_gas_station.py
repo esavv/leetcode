@@ -8,10 +8,9 @@ class Solution(object):
     # greedy-ish
     def soln2(self, gas, cost):
         n = len(gas)
-        net = [gas[i] - cost[i] for i in range(n)]
         start = 0
         while start < n:
-            currSum = net[start]
+            currSum = gas[start] - cost[start]
             if currSum < 0:
                 start += 1
                 continue
@@ -20,7 +19,7 @@ class Solution(object):
                 end = (end + 1) % n
                 if end == start:
                     return start
-                currSum += net[end]
+                currSum += gas[end] - cost[end]
             # if we make it here, we ran out of gas
             if end < start:
                 return -1
